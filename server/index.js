@@ -8,10 +8,10 @@ app.use(cors());
 
 // PostgreSQL Connection
 const pool = new Pool({
-    user: "postgres",   // Replace with your PostgreSQL username
-    host: "localhost",  // Change if using a remote database
-    database: "yogaclass", // Your database name
-    password: "1234", // Replace with your PostgreSQL password
+    user: "yoga_classes_user",   // Replace with your PostgreSQL username
+    host: "dpg-cugqav23esus73ffqd0g-a",  // Change if using a remote database
+    database: "yoga_classes", // Your database name
+    password: "pIGPY5tMcknkCBrGd6yQxjeJdHUSCqGi", // Replace with your PostgreSQL password
     port: 5432, // Default PostgreSQL port
     
 });
@@ -45,4 +45,4 @@ app.get("/users", async (req, res) => {
     }
 });
 
-app.listen(5000, () => console.log("Server started on port 5000"));
+app.listen(5432, () => console.log("Server started on port 5432"));
