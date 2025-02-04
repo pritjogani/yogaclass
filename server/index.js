@@ -8,7 +8,7 @@ app.use(cors());
 
 // PostgreSQL Connection
 const pool = new Pool({
-    user: "postgres",   // Replace with your PostgreSQL username
+    user: "yoga_classes_user",   // Replace with your PostgreSQL username
     host: "dpg-cugqav23esus73ffqd0g-a",  // Change if using a remote database
     database: "yoga_classes", // Your database name
     password: "pIGPY5tMcknkCBrGd6yQxjeJdHUSCqGi", // Replace with your PostgreSQL password
