@@ -1,27 +1,29 @@
 import { useState, useEffect } from "react";
-import axios from "axios";
+
 
 function App() {
     const [name, setName] = useState("");
     const [email, setEmail] = useState("");
     const [users, setUsers] = useState([]);
 
-    // Function to fetch users
+    
     const fetchUsers = async () => {
-        const res = await axios.get("https://backend-72ur.onrender.com/users");
+        const res = await fetch("https://backend-72ur.onrender.com/users",
+            { method:"GET"}
+        );
         setUsers(res.data);
     };
 
-    // Fetch users when the component loads
+    
     useEffect(() => {
         fetchUsers();
     }, []);
 
-    // Function to handle form submission
+    
     const handleSubmit = async (e) => {
         e.preventDefault();
-        await axios.post("https://backend-72ur.onrender.com/add", { name, email });
-        fetchUsers(); // Refresh list after submission
+        await fetch("https://backend-72ur.onrender.com/add", { name, email });
+        fetchUsers(); 
         setName("");
         setEmail("");
     };
