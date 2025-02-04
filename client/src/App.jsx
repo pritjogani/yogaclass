@@ -1,35 +1,62 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { useState, useEffect } from "react";
+import axios from "axios";
 
 function App() {
-  const [count, setCount] = useState(0)
+    const [name, setName] = useState("");
+    const [email, setEmail] = useState("");
+    const [users, setUsers] = useState([]);
 
-  return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+    // Function to fetch users
+    const fetchUsers = async () => {
+        const res = await axios.get("http://localhost:5000/users");
+        setUsers(res.data);
+    };
+
+    // Fetch users when the component loads
+    useEffect(() => {
+        fetchUsers();
+    }, []);
+
+    // Function to handle form submission
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        await axios.post("http://localhost:5000/add", { name, email });
+        fetchUsers(); // Refresh list after submission
+        setName("");
+        setEmail("");
+    };
+
+    return (
+        <div className="container">
+            <h1>User Form</h1>
+            <form onSubmit={handleSubmit}>
+                <input
+                    type="text"
+                    placeholder="Enter Name"
+                    value={name}
+                    onChange={(e) => setName(e.target.value)}
+                    required
+                />
+                <input
+                    type="email"
+                    placeholder="Enter Email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    required
+                />
+                <button type="submit">Submit</button>
+            </form>
+
+            <h2>Users List</h2>
+            <ul>
+                {users.map((user) => (
+                    <li key={user.id}>
+                        {user.name} - {user.email}
+                    </li>
+                ))}
+            </ul>
+        </div>
+    );
 }
 
-export default App
+export default App;
