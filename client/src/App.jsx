@@ -8,7 +8,7 @@ function App() {
 
     // Function to fetch users
     const fetchUsers = async () => {
-        const res = await axios.get("http://localhost:5000/users");
+        const res = await axios.get("https://backend-72ur.onrender.com/users");
         setUsers(res.data);
     };
 
@@ -20,7 +20,7 @@ function App() {
     // Function to handle form submission
     const handleSubmit = async (e) => {
         e.preventDefault();
-        await axios.post("http://localhost:5000/add", { name, email });
+        await axios.post("https://backend-72ur.onrender.com/add", { name, email });
         fetchUsers(); // Refresh list after submission
         setName("");
         setEmail("");
